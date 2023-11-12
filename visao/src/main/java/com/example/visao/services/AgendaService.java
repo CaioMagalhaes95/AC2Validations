@@ -3,6 +3,8 @@ package com.example.visao.services;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.repository.query.Param;
+
 import com.example.visao.dtos.AgendaDTO;
 import com.example.visao.dtos.DadosAgendaDTO;
 import com.example.visao.models.Agenda;
@@ -14,5 +16,7 @@ public interface AgendaService {
     void editar(Long id, AgendaDTO agendaDTO);
     List<DadosAgendaDTO> obterTodos();
 
-    Agenda findAgenda(Long id, LocalDate dataInicio);
+    List<AgendaDTO> findAgenda(Long id, LocalDate dataInicio);
+
+    List<AgendaDTO> findAgendaProfessor(Long id);
 }

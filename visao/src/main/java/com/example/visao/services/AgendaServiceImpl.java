@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class AgendaServiceImpl implements AgendaService{
-    private final AgendaRepository agendaRepository;
+    AgendaRepository agendaRepository;
 
     @Override
     @Transactional
@@ -73,13 +73,48 @@ public class AgendaServiceImpl implements AgendaService{
         
     }
 
-    @Override
-    public Agenda findAgenda(Long id, LocalDate dataInicio) {
-        if(dataInicio != null){
-            
-        }
-        return null;
-    }
+
+
+    
+    // @Override
+    // public List<AgendaDTO> findAgenda(Long id, LocalDate dataInicio) {
+    //     return agendaRepository.findAgenda(id, dataInicio).stream().map((Agenda a) -> {
+    //         return DadosAgendaDTO.builder()
+    //             .id(a.getId())
+    //             .cursoOferecido(a.getCursoOferecido())
+    //             .dataInicio(a.getDataInicio())
+    //             .dataFim(a.getDataFim())
+    //             .horarioInicio(a.getHorarioInicio())
+    //             .horarioFim(a.getHorarioFim())
+    //             .professor_responsavel(a.getProfessorResponsavel() == null ? null :a.getProfessorResponsavel().getId())
+    //             .cursoId(a.getCurso().getId() == null ? null :a.getCurso().getId())
+    //             .cidade(a.getCidade())
+    //             .estado(a.getEstado())
+    //             .cep(a.getCep())
+    //             .build();
+    //         }).collect(Collectors.toList());
+       
+    // }
+
+    // @Override
+    // public List<AgendaDTO> findAgendaProfessor(Long id) {
+    //     return agendaRepository.findAgendaProfessor(id).stream().map(a -> {
+    //          return DadosAgendaDTO.builder()
+    //             .id(a.getId())
+    //             .cursoOferecido(a.getCursoOferecido())
+    //             .dataInicio(a.getDataInicio())
+    //             .dataFim(a.getDataFim())
+    //             .horarioInicio(a.getHorarioInicio())
+    //             .horarioFim(a.getHorarioFim())
+    //             .professor_responsavel(a.getProfessorResponsavel() == null ? null :a.getProfessorResponsavel().getId())
+    //             .cursoId(a.getCurso().getId() == null ? null :a.getCurso().getId())
+    //             .cidade(a.getCidade())
+    //             .estado(a.getEstado())
+    //             .cep(a.getCep())
+    //             .build();
+    //     }).collect(Collectors.toList());
+        
+    // }
 
     
 }

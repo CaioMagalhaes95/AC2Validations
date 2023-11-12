@@ -36,7 +36,7 @@ public class ProfessorController {
     return p;
     }
 
-    @GetMapping
+    @GetMapping("todos")
     public List<DadosProfessorDTO> getProfessor() {
     return professorService.obterTodos();
     }

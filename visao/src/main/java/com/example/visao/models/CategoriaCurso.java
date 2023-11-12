@@ -24,8 +24,9 @@ public class CategoriaCurso {
         @NotEmpty(message = "Não pode ser vazio esta porra")
         private String nome;
 
-        @OneToMany(mappedBy = "categoriaCurso")
-        private List<Curso> cursos;
+        // @OneToMany(mappedBy = "categoriaCurso")
+        // private List<Curso> cursos;
+
         @Override
         public String toString() {
         return "CategoriaCurso [id=" + id + ", nome=" + nome + "]";

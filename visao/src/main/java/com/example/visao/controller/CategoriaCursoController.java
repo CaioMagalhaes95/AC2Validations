@@ -18,6 +18,8 @@ public class CategoriaCursoController {
     public CategoriaCursoController(CategoriaCursoService categoriaCursoService) {
     this.categoriaCursoService = categoriaCursoService;
     }
+
+    
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CategoriaCurso salvar(@RequestBody CategoriaCursoDTO dto) {

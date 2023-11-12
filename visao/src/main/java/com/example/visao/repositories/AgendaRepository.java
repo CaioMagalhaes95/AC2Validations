@@ -3,6 +3,7 @@ package com.example.visao.repositories;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.example.visao.dtos.DadosAgendaDTO;
 import com.example.visao.models.Agenda;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,5 +14,8 @@ public interface AgendaRepository extends JpaRepository<Agenda, Long> {
     List<Agenda> findByNomeLike(String nome);
 
     @Query("select c from Professor c inner join fetch c.agenda c where c.id = :id")
-    Agenda findAgenda(@Param("id") Long id, LocalDate DataInicio);
+    List<Agenda> findAgenda(@Param("id") Long id, @Param("data") LocalDate DataInicio);
+
+    @Query("select c from Agenda c where c.professor.id = :id")
+    List<Agenda> findAgendaProfessor(@Param("id")Long id);
 }
