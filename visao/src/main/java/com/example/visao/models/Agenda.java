@@ -40,13 +40,12 @@ public class Agenda {
     @PastOrPresent
     private LocalDateTime horarioInicio;
 
-    private LocalDateTime horarioIni;
 
     @Column(nullable = false)
     private LocalDateTime horarioFim;
 
     @Column(length = 200, nullable = false)
-    private String professorResponsavel;
+    private String professorNome;
 
     @Column(length = 200, nullable = false)
     private String cidade;
@@ -113,9 +112,7 @@ public class Agenda {
     public void setHorarioInicio(LocalDateTime horarioInicio) {
         this.horarioInicio = horarioInicio;
     }
-    public void setHorarioIni(LocalDateTime horarioInicio) {
-        this.horarioIni = horarioInicio;
-    }
+    
 
 
     public LocalDateTime getHorarioFim() {
@@ -128,13 +125,13 @@ public class Agenda {
     }
 
 
-    public String getProfessorResponsavel() {
-        return professorResponsavel;
+    public String getProfessorNome() {
+        return professorNome;
     }
 
 
-    public void setProfessorResponsavel(String professorResponsavel) {
-        this.professorResponsavel = professorResponsavel;
+    public void setProfessorNome(String professorNome) {
+        this.professorNome = professorNome;
     }
 
 

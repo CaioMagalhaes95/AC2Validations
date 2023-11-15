@@ -21,9 +21,11 @@ public class AgendaDTO {
     private String cursoOferecido;
     private LocalDate dataInicio;
     private LocalDate dataFim;
-    private LocalDatetime horarioInicio;
+   private LocalDatetime horarioInicio;
     private LocalDateTime horarioFim;
-    private String professoResponsavel;
+    private String professorNome;
+    private Long professorId;
+    private Long cursoId;
     private String cidade;
     private String estado;
     private String cep;

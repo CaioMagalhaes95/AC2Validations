@@ -19,9 +19,9 @@ public class DadosAgendaDTO {
     private String cursoOferecido;
     private LocalDate dataInicio;
     private LocalDate dataFim;
-    private LocalDateTime horarioInicio;
+   // private LocalDateTime horarioInicio;
     private LocalDateTime horarioFim;
-    private String professor_responsavel;
+    private String professor;
     private String cidade;
     private String estado;
     private String cep;
