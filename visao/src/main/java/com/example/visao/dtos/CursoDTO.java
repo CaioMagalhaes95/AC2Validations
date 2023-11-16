@@ -15,5 +15,7 @@ public class CursoDTO {
     private String objetivos;
     private String ementa;
     private Integer cargaHoraria;
+    private Long categoriaCursoId;
+    
 
 }

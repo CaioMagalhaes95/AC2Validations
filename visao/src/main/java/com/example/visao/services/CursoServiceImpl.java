@@ -21,6 +21,8 @@ public class CursoServiceImpl implements CursoService {
 
     private final CursoRepository cursoRepository;
 
+    private final CategoriaCursoRepository categoriaCursoRepository;
+
     @Override
     @Transactional
     public Curso findCurso(Long id){
@@ -61,60 +63,43 @@ public class CursoServiceImpl implements CursoService {
 }
 
 
+
+
+
+        @Override
+        public DadosCursoDTO obterCursoPorId(Long id) {
+        return cursoRepository.findById(id).map((Curso c) -> {
+        return DadosCursoDTO.builder()
+        .id(c.getId())
+        .nome(c.getDescricao())
+        .cargaHoraria(c.getCargaHoraria())
+        .categoria(CategoriaCursoDTO.builder()
+        .id(c.getCategoriaCurso().getId())
+        .nome(c.getCategoriaCurso().getNome())
+        .build())
+        .build();
+        }).orElseThrow(() -> new RegradeNegocioException("Curso não encontrado."));
+        }
+
+            @Override
+            @Transactional
+            public void remover(Long id) {
+            cursoRepository.deleteById(id);
+            }
+
     @Override
-    public DadosCursoDTO obterCursoPorId(Long id) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-
-    @Override
-    public void remover(Long id) {
-        // TODO Auto-generated method stub
-        
-    }
-
-
-    @Override
+    @Transactional
     public void editar(Long id, CursoDTO cursoDto) {
-        // TODO Auto-generated method stub
-        
+        Curso curso = cursoRepository.findById(id)
+        .orElseThrow(() -> new RegradeNegocioException("Curso não encontrado"));
+        CategoriaCurso categoria = categoriaCursoRepository.findById(
+        cursoDto.getCategoriaCursoId())
+        .orElseThrow(() -> new RegradeNegocioException("Categoria não encontrada"));
+        curso.setDescricao(cursoDto.getNome());
+        curso.setCargaHoraria(cursoDto.getCargaHoraria());
+        curso.setCategoriaCurso(categoria);
+        cursoRepository.save(curso);
     }
-
-    // @Override
-    // public DadosCursoDTO obterCursoPorId(Long id) {
-    // return cursoRepository.findById(id).map((Curso c) -> {
-    // return DadosCursoDTO.builder()
-    // .id(c.getId())
-    // .nome(c.getDescricao())
-    // .cargaHoraria(c.getCargaHoraria())
-    // .categoria(CategoriaCursoDTO.builder()
-    // .id(c.getCategoriaCurso().getId())
-    // .nome(c.getCategoriaCurso().getNome())
-    // .build())
-    // .build();
-    // }).orElseThrow(() -> new RegradeNegocioException("Curso não encontrado."));
-    // }
-
-    // @Override
-    // @Transactional
-    // public void remover(Long id) {
-    // cursoRepository.deleteById(id);
-    // }
-
-    // @Override
-    // @Transactional
-    // public void editar(Long id, CursoDTO cursoDto) {
-    //     Curso curso = cursoRepository.findById(id)
-    //     .orElseThrow(() -> new RegradeNegocioException("Curso não encontrado"));
-    //     CategoriaCurso categoria = categoriaCursoRepository.findById(
-    //     cursoDto.getCategoriaCursoId())
-    //     .orElseThrow(() -> new RegradeNegocioException("Categoria não encontrada"));
-    //     curso.setDescricao(cursoDto.getNome());
-    //     curso.setCargaHoraria(cursoDto.getCargaHoraria());
-    //     curso.setCategoriaCurso(categoria);
-    //     cursoRepository.save(curso);
-    // }
 
 }
 

@@ -37,10 +37,7 @@ public class Agenda {
     private LocalDate dataFim;
 
     @Column(nullable = false)
-    @PastOrPresent
     private LocalDateTime horarioInicio;
-
-    private LocalDateTime horarioIni;
 
     @Column(nullable = false)
     private LocalDateTime horarioFim;
@@ -65,6 +62,18 @@ public class Agenda {
     @ManyToOne
     @JoinColumn(name = "Professor_id")
     private Professor professor;
+
+    
+    public Professor getProfessor() {
+        return professor;
+    }
+
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
+    }
+
+
     public Long getId() {
         return id;
     }
@@ -113,9 +122,7 @@ public class Agenda {
     public void setHorarioInicio(LocalDateTime horarioInicio) {
         this.horarioInicio = horarioInicio;
     }
-    public void setHorarioIni(LocalDateTime horarioInicio) {
-        this.horarioIni = horarioInicio;
-    }
+    
 
 
     public LocalDateTime getHorarioFim() {

@@ -14,5 +14,5 @@ public interface AgendaService {
     void editar(Long id, AgendaDTO agendaDTO);
     List<DadosAgendaDTO> obterTodos();
 
-    Agenda findAgenda(Long id, LocalDate dataInicio);
+    List<AgendaDTO> agendaPorProfessor(Long profId);
 }

@@ -1,6 +1,7 @@
 package com.example.visao.controller;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -10,7 +11,9 @@ import com.example.visao.models.Agenda;
 import com.example.visao.services.AgendaService;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -34,5 +37,11 @@ public class AgendaController {
     @GetMapping
     public List<DadosAgendaDTO> getAgenda() {
     return agendaService.obterTodos();
+    }
+
+    @GetMapping("/professor/{id}")
+    public ResponseEntity<List<AgendaDTO>> agendaPorProfessor(@PathVariable Long professor){
+        List<AgendaDTO> agendaPorProfessor = agendaService.agendaPorProfessor(professor);
+        return new ResponseEntity<>(agendaPorProfessor, HttpStatus.OK);
     }
 }

@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import com.example.visao.dtos.DadosProfessorDTO;
 import com.example.visao.dtos.ProfessorDTO;
+import com.example.visao.exceptions.RegradeNegocioException;
 import com.example.visao.models.Professor;
 import com.example.visao.repositories.ProfessorRepository;
 
@@ -56,20 +57,38 @@ public class ProfessorServiceImpl implements ProfessorService{
     }
 
     @Override
-    public DadosProfessorDTO obterCursoPorId(Long id) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void remover(Long id) {
-        // TODO Auto-generated method stub
+    public DadosProfessorDTO obterProfessorPorId(Long id) {
+        return professorRepository.findById(id).map((Professor p) -> {
+            return DadosProfessorDTO.builder()
+            .id(p.getId())
+            .nome(p.getNome())
+            .celular(p.getCelular())
+            .cpf(p.getCpf())
+            .endereco(p.getEndereco())
+            .rg(p.getRg())
+            .build();
+        }).orElseThrow(() -> new RegradeNegocioException("Professor não encontrado"));
         
     }
 
     @Override
-    public void editar(Long id, ProfessorDTO cursoDto) {
-        // TODO Auto-generated method stub
+    public void remover(Long id) {
+        professorRepository.deleteById(id);
+        
+    }
+
+    @Override
+    public void editar(Long id, ProfessorDTO professorDTO) {
+        Professor professor = professorRepository.findById(id)
+        .orElseThrow(() -> new RegradeNegocioException("Professor não encontrado"));
+            professor.setId(professorDTO.getId());
+            professor.setNome(professorDTO.getNome());
+            professor.setCelular(professorDTO.getCelular());
+            professor.setEndereco(professorDTO.getEndereco());
+            professor.setRg(professorDTO.getRg());
+            professor.setCpf(professorDTO.getCpf());
+            professorRepository.save(professor);
+       
         
     }
 

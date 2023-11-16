@@ -1,6 +1,7 @@
 package com.example.visao.models;
 import java.util.List;
 
+import com.example.visao.dtos.CategoriaCursoDTO;
 import com.example.visao.validations.NomeCursoValidation;
 
 import jakarta.persistence.Column;
@@ -51,10 +52,21 @@ public class Curso {
     @Column(length = 200, nullable = false)
     private String ementa;
 
+    @ManyToOne
+    @JoinColumn(name = "categoriaCurso")
+    private CategoriaCurso categoriaCurso;
+
     @ManyToMany
     private List<Professor> professor;
 
     @OneToMany(mappedBy = "curso")
     List<Agenda> agenda;
+
+    public void setCategoriaCurso(CategoriaCurso categoria) {
+    }
+
+    public CategoriaCursoDTO getCategoriaCurso() {
+        return null;
+    }
     
 }

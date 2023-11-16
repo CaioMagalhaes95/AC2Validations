@@ -6,9 +6,13 @@ import java.util.stream.Collectors;
 
 import com.example.visao.dtos.AgendaDTO;
 import com.example.visao.dtos.DadosAgendaDTO;
+import com.example.visao.exceptions.RegradeNegocioException;
 import com.example.visao.models.Agenda;
 import com.example.visao.repositories.AgendaRepository;
+import com.example.visao.repositories.CursoRepository;
+import com.example.visao.repositories.ProfessorRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
@@ -17,8 +21,11 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class AgendaServiceImpl implements AgendaService{
-    private final AgendaRepository agendaRepository;
 
+    private final AgendaRepository agendaRepository;
+    private final ProfessorRepository professorRepository;
+    private final CursoRepository cursoRepository;
+    
     @Override
     @Transactional
     public Agenda salvar(AgendaDTO agendaDTO) {
@@ -28,7 +35,7 @@ public class AgendaServiceImpl implements AgendaService{
     agenda.setCursoOferecido(agendaDTO.getCursoOferecido());
     agenda.setDataInicio(agendaDTO.getDataInicio());
     agenda.setDataFim(agendaDTO.getDataFim());
-    //agenda.setHorarioIni(agendaDTO.getHorarioInicio());
+    //agenda.setHorarioInicio(agendaDTO.getHorarioInicio());
     agenda.setHorarioFim(agendaDTO.getHorarioFim());
 
     agenda.setProfessorResponsavel(agendaDTO.getProfessoResponsavel());
@@ -57,29 +64,66 @@ public class AgendaServiceImpl implements AgendaService{
 
     @Override
     public DadosAgendaDTO obterAgendaPorId(Long id) {
-        // TODO Auto-generated method stub
-        return null;
+       return agendaRepository.findById(id).map((Agenda a) -> {
+        return DadosAgendaDTO.builder()
+        .cep(a.getCep())
+        .cidade(a.getCidade())
+        .cursoOferecido(a.getCursoOferecido())
+        .dataFim(a.getDataFim())
+        .dataInicio(a.getDataInicio())
+        .estado(a.getEstado())
+        .horarioFim(a.getHorarioFim())
+        .horarioInicio(a.getHorarioInicio())
+        .id(a.getId())
+        .professor_responsavel(a.getProfessorResponsavel())
+        .build();
+       }).orElseThrow(() -> new RegradeNegocioException("Agenda não encontrada"));
+        
     }
 
     @Override
     public void remover(Long id) {
-        // TODO Auto-generated method stub
+        agendaRepository.deleteById(id);
         
     }
 
     @Override
     public void editar(Long id, AgendaDTO agendaDTO) {
-        // TODO Auto-generated method stub
-        
+        Agenda agenda = agendaRepository.findById(id)        
+        .orElseThrow(() -> new RegradeNegocioException("Agenda não encontrada"));
+        agenda.setCep(agendaDTO.getCep());
+        agenda.setCidade(agendaDTO.getCidade());
+        agenda.setCursoOferecido(agendaDTO.getCursoOferecido());
+        agenda.setDataFim(agendaDTO.getDataFim());
+        agenda.setDataInicio(agendaDTO.getDataInicio());
+        agenda.setEstado(agendaDTO.getEstado());
+        agenda.setHorarioFim(agendaDTO.getHorarioFim());
+        agenda.setId(agendaDTO.getId());
+        agenda.setProfessorResponsavel(agendaDTO.getProfessoResponsavel());
+        agendaRepository.save(agenda);
+
+        }
+        private AgendaDTO ToDTO(Agenda agenda) {
+            return AgendaDTO.builder()
+                    .id(agenda.getId())
+                    .dataInicio(agenda.getDataInicio())
+                    .dataFim(agenda.getDataFim())
+                    //.horarioInicio(agenda.getHorarioInicio())
+                    .horarioFim(agenda.getHorarioFim())
+                    .professoResponsavel(agenda.getProfessorResponsavel())
+                    .cidade(agenda.getCidade())
+                    .estado(agenda.getEstado())
+                    .cep(agenda.getCep())
+                    .cursoOferecido(agenda.getCursoOferecido())
+                    .build();
+        }
+
+    public List<AgendaDTO> agendaPorProfessor(Long id){
+        List<Agenda> agendas = agendaRepository.findByProfessor(id);
+        return agendas.stream().map(this::ToDTO).collect(Collectors.toList());
+         
     }
 
-    @Override
-    public Agenda findAgenda(Long id, LocalDate dataInicio) {
-        if(dataInicio != null){
-            
-        }
-        return null;
     }
 
     
-}

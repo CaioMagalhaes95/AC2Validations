@@ -9,9 +9,9 @@ import com.example.visao.models.Professor;
 public interface ProfessorService {
     
     Professor salvar(ProfessorDTO professorDTO);
-    DadosProfessorDTO obterCursoPorId(Long id);
+    DadosProfessorDTO obterProfessorPorId(Long id);
     void remover(Long id);
-    void editar(Long id, ProfessorDTO cursoDto);
+    void editar(Long id, ProfessorDTO professorDTO);
     List<DadosProfessorDTO> obterTodos();
     Professor findProfessor(Long id);
     
