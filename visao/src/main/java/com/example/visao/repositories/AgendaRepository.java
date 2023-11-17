@@ -13,8 +13,7 @@ import org.springframework.data.repository.query.Param;
 public interface AgendaRepository extends JpaRepository<Agenda, Long> {
     
 
-    // @Query("select c from Professor c inner join fetch c.agenda c where c.id = :id")
-    // List<Agenda>f
+    @Query("select a from Agenda a  where a.professor.id = :id")
+    List<Agenda> findByProfessor(Long id);
 
-        List<Agenda> findByProfessor(Long id);
 }

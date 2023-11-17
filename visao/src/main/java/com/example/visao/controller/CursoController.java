@@ -40,21 +40,23 @@ public class CursoController {
     return cursoService.obterTodos();
     }
 
-    @GetMapping
-    public Curso findCurso(@RequestParam Long id){
-        return cursoService.findCurso(id);
-    }
+    // @GetMapping
+    // public Curso findCurso(@RequestParam Long id){
+    //     return cursoService.findCurso(id);
+    // }
 
 
     @GetMapping("{id}")
     public DadosCursoDTO getCursoPorId(@PathVariable Long id) {
     return cursoService.obterCursoPorId(id);
     }
+
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCurso(@PathVariable Long id) {
     cursoService.remover(id);
     }
+    
     @PutMapping("{id}")
     public void editCurso(@PathVariable Long id, @RequestBody CursoDTO dto) {
         cursoService.editar(id, dto);

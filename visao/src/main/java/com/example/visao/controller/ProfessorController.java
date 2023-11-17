@@ -30,7 +30,7 @@ public class ProfessorController {
     this.professorService = professorService;
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     public Professor findProfessor(@RequestParam Long id){
         return professorService.findProfessor(id);
     }

@@ -11,6 +11,6 @@ import org.springframework.data.repository.query.Param;
 public interface ProfessorRepository extends JpaRepository<Professor, Long> {
     List<Professor> findByNomeLike(String nome);
 
-    @Query("select c from Professor c inner join fetch c.agenda c where c.id = :id")
+    @Query("select c from Professor c inner join fetch c.agenda where c.id = :id")
     Professor findProfessor(@Param("id") Long id);
 }
